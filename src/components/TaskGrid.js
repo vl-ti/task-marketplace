@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchTasks } from "../actions";
+
 import ReactMarkdown from "react-markdown";
 
 class TaskGrid extends React.Component {
@@ -52,6 +53,7 @@ class TaskGrid extends React.Component {
 
   renderList() {
     return this.props.tasks.map((task) => {
+      const taskURL = "https://www.topcoder.com/challenges/" + task.id;
       return (
         <div className="ui card" key={task.id}>
           <div className="content">
@@ -73,7 +75,9 @@ class TaskGrid extends React.Component {
           </div>
           <div className="ui bottom attached button">
             <i className="add icon"></i>
-            Register
+            <a href={taskURL} alt="link to task">
+              View Task
+            </a>
           </div>
         </div>
       );
