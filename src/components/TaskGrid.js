@@ -74,8 +74,8 @@ class TaskGrid extends React.Component {
             </div>
           </div>
           <div className="ui bottom attached button">
-            <i className="add icon"></i>
             <a href={taskURL} alt="link to task">
+              <i className="eye icon"></i>
               View Task
             </a>
           </div>
