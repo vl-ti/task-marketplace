@@ -54,11 +54,15 @@ class TaskGrid extends React.Component {
   renderList() {
     return this.props.tasks.map((task) => {
       const taskURL = "https://www.topcoder.com/challenges/" + task.id;
+      const taskDetails = new Map(Object.entries(task.task));
       return (
         <div className="ui card" key={task.id}>
           <div className="content">
             <div className="header">{task.name}</div>
-            <div className="meta">{task.status}</div>
+            <div className="meta">
+              Status: {task.status} Assigned:
+              {taskDetails.get("isAssigned").toString()}
+            </div>
             <div className="description">
               {this.getShortDesc(task.description, task.descriptionFormat)}
             </div>
@@ -71,6 +75,9 @@ class TaskGrid extends React.Component {
             <div className="ui labels">
               <b>Prizes:</b>
               {this.renderPrizes(Object.values(task.prizeSets))}
+            </div>
+            <div>
+              Registrants <i className="users icon" /> {task.numOfRegistrants}
             </div>
           </div>
           <div className="ui bottom attached button">
