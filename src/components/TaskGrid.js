@@ -10,7 +10,7 @@ class TaskGrid extends React.Component {
   }
 
   getShortDesc(description, descriptionFormat) {
-    var shortDesc = description;
+    var shortDesc = "" + description;
     if (descriptionFormat == "HTML") {
       shortDesc = shortDesc.replace(/(<([^>]+)>)/gi, "");
     }
@@ -18,6 +18,8 @@ class TaskGrid extends React.Component {
   }
 
   renderPrizes(prizeSets) {
+    if (prizeSets == null) return <div />;
+    prizeSets = Object.values(prizeSets);
     return prizeSets.map((prizeSet) => {
       return prizeSet.prizes.map((prize) => {
         var currencyClassName = " sign icon";
@@ -42,19 +44,27 @@ class TaskGrid extends React.Component {
   }
 
   renderTags(tags) {
-    return tags.map((tag) => {
-      return (
-        <div className="ui label" key={tag}>
-          {tag}
-        </div>
-      );
-    });
+    console.log(tags);
+    if (tags == null) {
+      return <div />;
+    } else {
+      return tags.map((tag) => {
+        return (
+          <div className="ui label" key={tag}>
+            {tag}
+          </div>
+        );
+      });
+    }
   }
 
   renderList() {
     return this.props.tasks.map((task) => {
       const taskURL = "https://www.topcoder.com/challenges/" + task.id;
       const taskDetails = new Map(Object.entries(task.task));
+      console.log(taskDetails);
+      console.log(task);
+      console.log("starting");
       return (
         <div className="ui card" key={task.id}>
           <div className="content">
@@ -74,7 +84,7 @@ class TaskGrid extends React.Component {
             </div>
             <div className="ui labels">
               <b>Prizes:</b>
-              {this.renderPrizes(Object.values(task.prizeSets))}
+              {this.renderPrizes(task.prizeSets)}
             </div>
             <div>
               Registrants <i className="users icon" /> {task.numOfRegistrants}
